@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "481253262459",
+    "project_id": "healthwire-9bf6f",
+    "storage_bucket": "healthwire-9bf6f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481253262459:android:9713f112391157ce5e0ede",
+        "android_client_info": {
+          "package_name": "com.example.healthwire"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdxs1cQ0KcbiML0vvHUuVxfQbCRxOxqVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
