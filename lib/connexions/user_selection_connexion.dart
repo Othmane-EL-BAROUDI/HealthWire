@@ -1,37 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:healthwire/connexions/user_selection_connexion.dart';
+import 'package:healthwire/connexions/signup_connexion.dart';
+import 'package:healthwire/connexions/patient_signup_connexion.dart'; // <-- Import de la page pour le Patient
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xFFD9FDF5), // Fond vert clair
-      ),
-      home: const UserSelectionConnexion(),
-    );
-  }
-}
-
-class UserSelectionScreen extends StatelessWidget {
-  const UserSelectionScreen({super.key});
+class UserSelectionConnexion extends StatelessWidget {
+  const UserSelectionConnexion({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // AppBar transparent
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            // Retour à l'écran précédent (si souhaité)
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Padding(
@@ -50,10 +36,16 @@ class UserSelectionScreen extends StatelessWidget {
 
             // Bouton Health Professional
             UserCard(
-              imagePath: "assets/doctor.png", // Remplace avec ton image
+              imagePath: "assets/doctor.png",
               label: "Health Professional",
               onTap: () {
-                print("Health Professional Selected");
+                print("🟢 Health Professional Selected");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SignupConnexion(),
+                  ),
+                );
               },
             ),
 
@@ -61,10 +53,16 @@ class UserSelectionScreen extends StatelessWidget {
 
             // Bouton Patient
             UserCard(
-              imagePath: "assets/patient.png", // Remplace avec ton image
+              imagePath: "assets/patient.png",
               label: "Patient",
               onTap: () {
-                print("Patient Selected");
+                print("🟢 Patient Selected");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PatientSignupConnexion(),
+                  ),
+                );
               },
             ),
           ],
@@ -74,6 +72,7 @@ class UserSelectionScreen extends StatelessWidget {
   }
 }
 
+// Ce composant réutilisable gère l'affichage d'une image + un bouton
 class UserCard extends StatelessWidget {
   final String imagePath;
   final String label;
@@ -83,17 +82,18 @@ class UserCard extends StatelessWidget {
     required this.imagePath,
     required this.label,
     required this.onTap,
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap, // Gère le tap sur la carte
       child: Column(
         children: [
+          // Encadré de l'image
           Container(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -106,7 +106,7 @@ class UserCard extends StatelessWidget {
                   color: Colors.black.withOpacity(0.1),
                   blurRadius: 5,
                   spreadRadius: 2,
-                  offset: Offset(0, 3),
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
@@ -118,18 +118,23 @@ class UserCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
+          // Bouton
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black, // Fond noir
+              backgroundColor: Colors.black,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
             ),
-            onPressed: onTap,
+            onPressed: onTap, // Gère le clic sur le bouton
             child: Text(
               label,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ],
